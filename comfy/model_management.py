@@ -175,7 +175,7 @@ try:
         if int(torch_version[0]) >= 2:
             if ENABLE_PYTORCH_ATTENTION == False and args.use_split_cross_attention == False and args.use_quad_cross_attention == False:
                 ENABLE_PYTORCH_ATTENTION = True
-            if torch.cuda.is_bf16_supported():
+            if torch.cuda.is_bf16_supported() and torch.cuda.get_device_properties(torch.cuda.current_device()).major >= 8:
                 VAE_DTYPE = torch.bfloat16
     if is_intel_xpu():
         if args.use_split_cross_attention == False and args.use_quad_cross_attention == False:
@@ -185,6 +185,9 @@ except:
 
 if is_intel_xpu():
     VAE_DTYPE = torch.bfloat16
+
+if args.cpu_vae:
+    VAE_DTYPE = torch.float32
 
 if args.fp16_vae:
     VAE_DTYPE = torch.float16
@@ -555,6 +558,8 @@ def intermediate_device():
         return torch.device("cpu")
 
 def vae_device():
+    if args.cpu_vae:
+        return torch.device("cpu")
     return get_torch_device()
 
 def vae_offload_device():
