@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-torch = {version="^2.1.1", source="torch"}
+torch = {version=">=2.1.1", source="torch"}
 torchsde = "^0.2.6"
 einops = "^0.7.0"
 transformers = ">=4.25.1"
@@ -20,7 +20,11 @@ pillow = "^10.1.0"
 scipy = "^1.11.4"
 tqdm = "^4.66.1"
 psutil = "^5.9.6"
-torchvision = {version="^0.16.1", source="torch"}
+torchvision = {version=">=0.16.1", source="torch"}
+kornia = ">=0.7.1"
+torchaudio = "^2.4.0"
+spandrel = "^0.3.4"
+soundfile = "^0.12.1"
 
 [[tool.poetry.source]]
 name = "torch"
